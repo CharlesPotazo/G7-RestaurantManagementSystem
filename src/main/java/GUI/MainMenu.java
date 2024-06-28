@@ -45,9 +45,7 @@ public class MainMenu extends JFrame implements ActionListener{
         add(txtMessage2);
         
         //------------Buttons---------
-        
-        //btnPOS, btnInventory, btnReports, btnWasteTracking;
-        
+
         btnPOS = new JButton("POS");//POS Button
         btnPOS.setBounds(30,150,100,27);
         btnPOS.setBackground(new Color(0, 0, 0, 0));
@@ -58,15 +56,36 @@ public class MainMenu extends JFrame implements ActionListener{
         btnPOS.addActionListener(this);
         add(btnPOS);
         
-        btnInventory = new JButton("POS");//POS Button
-        btnInventory.setBounds(30,150,100,27);
+        btnInventory = new JButton("Inventory");//Inventory Button
+        btnInventory.setBounds(0,250,150,27);
         btnInventory.setBackground(new Color(0, 0, 0, 0));
         btnInventory.setOpaque(false); 
         btnInventory.setBorderPainted(false);
         btnInventory.setForeground(Color.white);
         btnInventory.setFont(new Font("impact", Font.PLAIN, 27));
         btnInventory.addActionListener(this);
-        add(btnPOS);
+        add(btnInventory);
+        
+        btnReports = new JButton("Reports");//Reports Button
+        btnReports.setBounds(10,350,130,27);
+        btnReports.setBackground(new Color(0, 0, 0, 0));
+        btnReports.setOpaque(false); 
+        btnReports.setBorderPainted(false);
+        btnReports.setForeground(Color.white);
+        btnReports.setFont(new Font("impact", Font.PLAIN, 27));
+        btnReports.addActionListener(this);
+        add(btnReports);
+        
+        btnWasteTracking = new JButton("Waste");//Waste Button
+        btnWasteTracking.setBounds(0,450,150,27);
+        btnWasteTracking.setBackground(new Color(0, 0, 0, 0));
+        btnWasteTracking.setOpaque(false); 
+        btnWasteTracking.setBorderPainted(false);
+        btnWasteTracking.setForeground(Color.white);
+        btnWasteTracking.setFont(new Font("impact", Font.PLAIN, 27));
+        btnWasteTracking.addActionListener(this);
+        add(btnWasteTracking);
+        
         
         //-------designs-----------------
         
@@ -84,7 +103,7 @@ public class MainMenu extends JFrame implements ActionListener{
         add(divider);
         
         whiteSquare = new JPanel();//white square
-        whiteSquare.setBounds(0, 0, 900, 100);
+        whiteSquare.setBounds(0, 0, 150, 100);
         whiteSquare.setBackground(Color.white);
         add(whiteSquare);
         
@@ -97,7 +116,7 @@ public class MainMenu extends JFrame implements ActionListener{
         ImageIcon backgroundPic = new ImageIcon("Images/Background1.jpg");
         Image bg = backgroundPic.getImage().getScaledInstance(900,620, Image.SCALE_SMOOTH);
         BackGroundImage.setIcon(new ImageIcon(bg));
-        BackGroundImage.setBounds(0, 20, 900,620);
+        BackGroundImage.setBounds(0, 0, 900,620);
         add(BackGroundImage);
         setVisible(true);
     }
@@ -105,6 +124,17 @@ public class MainMenu extends JFrame implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       if(e.getSource() == btnPOS){
+       
+       }
+       else if(e.getSource() == btnInventory){
+       
+       }
+       else if(e.getSource() == btnReports){
+       
+       }
+       else if(e.getSource() == btnWasteTracking){
+       
+       }
     }
 }
