@@ -14,6 +14,14 @@ public class POSMenu extends JFrame implements ActionListener{
     private JButton btnInventory, btnReports, btnWasteTracking;
     private JButton btnFood, btnDrinks , btnDessert, Food1,Food2,Food3, Drink1,Drink2, Dessert1,Dessert2;
     
+    private JLabel orange, product1Label, pricetxtLabel1, priceLabel1;
+    private JPanel squareOrange;
+    private JTextField quantityField1;
+    private JButton addOrange, subtractOrange;
+    private double product1Price;
+    private int product1Quantity;
+    
+    
     POSMenu(){
         setSize(900, 600);
         setLayout(null);
@@ -102,10 +110,53 @@ public class POSMenu extends JFrame implements ActionListener{
         //------Food_Panel--------------
         
         panelFood = new JPanel();
+        panelFood.setLayout(null);
         panelFood.setBackground(new Color(87, 88, 90));
         panelFood.setBounds(170, 100, 470,500);
         panelFood.setVisible(true);
         add(panelFood);
+        
+        //Orange Chicken
+        product1Price = 130.00;
+        product1Quantity = 0;
+        
+        orange = new JLabel();
+        ImageIcon orangePic = new ImageIcon("images/orange chicken.jpg");
+        orange.setIcon(orangePic);
+        orange.setBounds(190, 120, 200, 150);
+        panelFood.add(orange);
+        
+        product1Label = new JLabel("Orange Chicken");
+        product1Label.setBounds(220, 250, 100, 20);
+        panelFood.add(product1Label);
+
+        pricetxtLabel1 = new JLabel("₱");
+        pricetxtLabel1.setBounds(250, 270, 100, 20);
+        panelFood.add(pricetxtLabel1);
+
+        priceLabel1 = new JLabel(Double.toString(product1Price));
+        priceLabel1.setBounds(290, 270, 50, 20);
+        panelFood.add(priceLabel1);
+
+        quantityField1 = new JTextField(Integer.toString(product1Quantity));
+
+        addOrange = new JButton("+");
+        addOrange.setBounds(300, 390, 70, 20);
+        addOrange.addActionListener(this);
+        panelFood.add(addOrange);
+
+        subtractOrange = new JButton("-");
+        subtractOrange.setBounds(300, 390, 70, 20);
+        subtractOrange.addActionListener(this);
+        subtractOrange.setEnabled(false); // Initially disable decrease button
+        panelFood.add(subtractOrange);
+        
+        squareOrange = new JPanel(); 
+        squareOrange.setBounds(300, 120, 170, 210);
+        squareOrange.setBackground(Color.WHITE);
+        
+        squareOrange.setVisible(true);
+        panelFood.add(squareOrange);
         
                 //panelFood.add(    button or panel) ipasok sa loob ng panel
         
