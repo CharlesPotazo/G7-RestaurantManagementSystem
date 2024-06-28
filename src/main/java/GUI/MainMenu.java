@@ -21,6 +21,7 @@ public class MainMenu extends JFrame implements ActionListener{
         setLayout(null);
         setResizable(false);
         setLocationRelativeTo(null);
+        setTitle("Menu");
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         
         //---------text----------------

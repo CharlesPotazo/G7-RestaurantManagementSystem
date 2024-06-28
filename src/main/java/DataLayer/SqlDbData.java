@@ -33,7 +33,8 @@ public class SqlDbData {
 
                 users.add(readUser);
             }
-        } catch (SQLException e) {
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
         return users;
     }
