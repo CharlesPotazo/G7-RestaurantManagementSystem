@@ -279,7 +279,6 @@ public class POSMenu extends JFrame implements ActionListener{
                 //panelFood.add(    button or panel) ipasok sa loob ng panel
         
         //------Drink_Panel--------------
-        
         panelDrinks = new JPanel();
         panelDrinks.setBackground(Color.red);
         panelDrinks.setLayout(null);
@@ -373,7 +372,6 @@ public class POSMenu extends JFrame implements ActionListener{
         
         
         //------Dessert_Panel--------
-        
         panelDessert = new JPanel();
         panelDessert.setBackground(Color.BLUE);
         panelDessert.setLayout(null);
@@ -465,9 +463,7 @@ public class POSMenu extends JFrame implements ActionListener{
         squareMango.setVisible(true);
         panelDessert.add(squareMango);
         
-        //-------designs-----------------
-        
-        
+        //-------Designs-----------------
         Logo = new JLabel(); //Background
         ImageIcon logoPic = new ImageIcon("Images/Logo.png");
         Image logo = logoPic.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -811,16 +807,16 @@ public class POSMenu extends JFrame implements ActionListener{
             if (mushroomQuantity > 0) {
                 review += "Mushroom Chicken: " + mushroomQuantity + " x ₱" + mushroomPrice + " = ₱" + (mushroomQuantity * mushroomPrice) + "\n";
             }
-             if (cokeQuantity > 0) {
+            if (cokeQuantity > 0) {
                 review += "Coke: " + cokeQuantity + " x ₱" + cokePrice + " = ₱" + (cokeQuantity * cokePrice) + "\n";
             }
-              if (spriteQuantity > 0) {
+            if (spriteQuantity > 0) {
                 review += "Sprite: " + spriteQuantity + " x ₱" + spritePrice + " = ₱" + (spriteQuantity * spritePrice) + "\n";
             }
-               if (ubeQuantity > 0) {
+            if (ubeQuantity > 0) {
                 review += "Ube Pastillas: " + ubeQuantity + " x ₱" + ubePrice + " = ₱" + (ubeQuantity * ubePrice) + "\n";
             }
-                if (mangoQuantity > 0) {
+            if (mangoQuantity > 0) {
                 review += "Mango Sago: " + mangoQuantity + " x ₱" + mangoPrice + " = ₱" + (mangoQuantity * mangoPrice) + "\n";
             }
 
