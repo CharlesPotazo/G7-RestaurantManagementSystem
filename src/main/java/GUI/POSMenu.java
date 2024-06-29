@@ -2,24 +2,36 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.border.Border;
 
 public class POSMenu extends JFrame implements ActionListener{
     
     private JPanel panelFood, panelDrinks, panelDessert ;
-    private JTextArea orderArea;
+    private JTextArea orderArea, productArea, totalArea;
     private JPanel whiteSquare, grayRectangle, divider;
     private JLabel POS, Logo;
     private JButton btnInventory, btnReports, btnWasteTracking;
     private JButton btnFood, btnDrinks , btnDessert, Food1,Food2,Food3, Drink1,Drink2, Dessert1,Dessert2;
     
-    private JLabel orange, product1Label, pricetxtLabel1, priceLabel1;
-    private JPanel squareOrange;
-    private JTextField quantityField1;
-    private JButton addOrange, subtractOrange;
-    private double product1Price;
-    private int product1Quantity;
+    //fo
+    private JLabel Orange, lblOrange, pesosignOrange, priceOrange, 
+            Kungpao, lblKungpao, pesosignKungpao, priceKungpao,
+            Mushroom, lblMushroom, pesosignMushroom, priceMushroom, totalLabel;
+    private JPanel squareOrange, squareKungpao, squareMushroom;
+    private JTextField quantityOrangeField, quantityKungpaoField, quantityMushroomField, totalField;
+    private JButton addOrange, subtractOrange,
+            addKungpao, subtractKungpao,
+            addMushroom, subtractMushroom, btnCheckout;
+    private double orangePrice, kungpaoPrice, mushroomPrice;
+    private int orangeQuantity, kungpaoQuantity, mushroomQuantity;
+    
+    private static final String URL = "jdbc:mysql://localhost:3306/reports";
+    private static final String USER = "root";
+    private static final String PASSWORD = "@bleusagun_253803"; //password ng mySql
     
     
     POSMenu(){
@@ -33,14 +45,23 @@ public class POSMenu extends JFrame implements ActionListener{
         
         //------Text Area Order-------
         
+        Border blackBorder = BorderFactory.createLineBorder(Color.BLACK);
+        
         orderArea = new JTextArea();
         orderArea.setEditable(false);
-        Border blackBorder = BorderFactory.createLineBorder(Color.BLACK);
         orderArea.setBorder(blackBorder);
-        orderArea.setBounds(660, 10, 240, 500);
+        orderArea.setBounds(650, 10, 225, 380);
         add(orderArea);
         
-       
+        totalArea = new JTextArea();
+        totalArea.setEditable(false);
+        totalArea.setBorder(blackBorder);
+        totalArea.setBounds(650, 390, 225, 100);
+        add(totalArea);
+        
+        totalLabel = new JLabel("Total:");
+
+        totalField = new JTextField("0.00");
         
         //------------Buttons---------
         btnFood = new JButton("Food");
@@ -107,6 +128,11 @@ public class POSMenu extends JFrame implements ActionListener{
         btnWasteTracking.addActionListener(this);
         add(btnWasteTracking);
         
+        btnCheckout = new JButton("Checkout");//Checkout Button
+        btnCheckout.setBounds(650, 500, 225, 30);
+        btnCheckout.addActionListener(this);
+        add(btnCheckout);
+        
         //------Food_Panel--------------
         
         panelFood = new JPanel();
@@ -116,47 +142,132 @@ public class POSMenu extends JFrame implements ActionListener{
         panelFood.setVisible(true);
         add(panelFood);
         
-        //Orange Chicken
-        product1Price = 130.00;
-        product1Quantity = 0;
+        //--------------- Orange Chicken ---------------
+        orangePrice = 130.00;
+        orangeQuantity = 0;
         
-        orange = new JLabel();
+        Orange = new JLabel();
         ImageIcon orangePic = new ImageIcon("images/orange chicken.jpg");
-        orange.setIcon(orangePic);
-        orange.setBounds(190, 120, 200, 150);
-        panelFood.add(orange);
+        Image orange = orangePic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
+        Orange.setBounds(40, 30, 100, 80);
+        Orange.setIcon(new ImageIcon(orange));
+        panelFood.add(Orange);
         
-        product1Label = new JLabel("Orange Chicken");
-        product1Label.setBounds(220, 250, 100, 20);
-        panelFood.add(product1Label);
+        lblOrange = new JLabel("Orange Chicken");
+        lblOrange.setBounds(45, 130, 100, 20);
+        panelFood.add(lblOrange);
 
-        pricetxtLabel1 = new JLabel("₱");
-        pricetxtLabel1.setBounds(250, 270, 100, 20);
-        panelFood.add(pricetxtLabel1);
+        pesosignOrange = new JLabel("₱");
+        pesosignOrange.setBounds(65, 150, 100, 20);
+        panelFood.add(pesosignOrange);
 
-        priceLabel1 = new JLabel(Double.toString(product1Price));
-        priceLabel1.setBounds(290, 270, 50, 20);
-        panelFood.add(priceLabel1);
+        priceOrange = new JLabel(Double.toString(orangePrice));
+        priceOrange.setBounds(75, 150, 50, 20);
+        panelFood.add(priceOrange);
 
-        quantityField1 = new JTextField(Integer.toString(product1Quantity));
+        quantityOrangeField = new JTextField(Integer.toString(orangeQuantity));
 
         addOrange = new JButton("+");
-        addOrange.setBounds(300, 390, 70, 20);
+        addOrange.setBounds(25, 185, 60, 20);
         addOrange.addActionListener(this);
         panelFood.add(addOrange);
 
         subtractOrange = new JButton("-");
-        subtractOrange.setBounds(300, 390, 70, 20);
+        subtractOrange.setBounds(95, 185, 60, 20);
         subtractOrange.addActionListener(this);
         subtractOrange.setEnabled(false); // Initially disable decrease button
         panelFood.add(subtractOrange);
         
         squareOrange = new JPanel(); 
-        squareOrange.setBounds(300, 120, 170, 210);
+        squareOrange.setBounds(25, 10, 130, 170);
         squareOrange.setBackground(Color.WHITE);
-        
         squareOrange.setVisible(true);
         panelFood.add(squareOrange);
+        
+        //--------------- Kung Pao Chicken ---------------
+        kungpaoPrice = 130.00;
+        kungpaoQuantity = 0;
+        
+        Kungpao = new JLabel();
+        ImageIcon kungpaoPic = new ImageIcon("images/kungpao chicken.jpg");
+        Image kungpao = kungpaoPic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
+        Kungpao.setBounds(180, 30, 100, 80);
+        Kungpao.setIcon(new ImageIcon(kungpao));
+        panelFood.add(Kungpao);
+        
+        lblKungpao = new JLabel("Kung Pao Chicken");
+        lblKungpao.setBounds(180, 130, 150, 20);
+        panelFood.add(lblKungpao);
+
+        pesosignKungpao = new JLabel("₱");
+        pesosignKungpao.setBounds(205, 150, 100, 20);
+        panelFood.add(pesosignKungpao);
+
+        priceKungpao = new JLabel(Double.toString(kungpaoPrice));
+        priceKungpao.setBounds(215, 150, 50, 20);
+        panelFood.add(priceKungpao);
+
+        quantityKungpaoField = new JTextField(Integer.toString(kungpaoQuantity));
+
+        addKungpao = new JButton("+");
+        addKungpao.setBounds(165, 185, 60, 20);
+        addKungpao.addActionListener(this);
+        panelFood.add(addKungpao);
+
+        subtractKungpao = new JButton("-");
+        subtractKungpao.setBounds(235, 185, 60, 20);
+        subtractKungpao.addActionListener(this);
+        subtractKungpao.setEnabled(false); // Initially disable decrease button
+        panelFood.add(subtractKungpao);
+        
+        squareKungpao = new JPanel(); 
+        squareKungpao.setBounds(165, 10, 130, 170);
+        squareKungpao.setBackground(Color.WHITE);
+        squareKungpao.setVisible(true);
+        panelFood.add(squareKungpao);
+
+        
+        //--------------- Mushroom Chicken ---------------
+        mushroomPrice = 130.00;
+        mushroomQuantity = 0;
+        
+        Mushroom = new JLabel();
+        ImageIcon mushroomPic = new ImageIcon("images/mushroom chicken.jpg");
+        Image mushroom = mushroomPic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
+        Mushroom.setBounds(315, 30, 100, 80);
+        Mushroom.setIcon(new ImageIcon(mushroom));
+        panelFood.add(Mushroom);
+        
+        lblMushroom = new JLabel("Mushroom Chicken");
+        lblMushroom.setBounds(315, 130, 150, 20);
+        panelFood.add(lblMushroom);
+
+        pesosignMushroom = new JLabel("₱");
+        pesosignMushroom.setBounds(345, 150, 100, 20);
+        panelFood.add(pesosignMushroom);
+
+        priceMushroom = new JLabel(Double.toString(kungpaoPrice));
+        priceMushroom.setBounds(355, 150, 50, 20);
+        panelFood.add(priceMushroom);
+
+        quantityMushroomField = new JTextField(Integer.toString(kungpaoQuantity));
+
+        addMushroom = new JButton("+");
+        addMushroom.setBounds(305, 185, 60, 20);
+        addMushroom.addActionListener(this);
+        panelFood.add(addMushroom);
+
+        subtractMushroom = new JButton("-");
+        subtractMushroom.setBounds(375, 185, 60, 20);
+        subtractMushroom.addActionListener(this);
+        subtractMushroom.setEnabled(false); // Initially disable decrease button
+        panelFood.add(subtractMushroom);
+        
+        squareMushroom = new JPanel(); 
+        squareMushroom.setBounds(305, 10, 130, 170);
+        squareMushroom.setBackground(Color.WHITE);
+        squareMushroom.setVisible(true);
+        panelFood.add(squareMushroom);
         
                 //panelFood.add(    button or panel) ipasok sa loob ng panel
         
@@ -225,6 +336,194 @@ public class POSMenu extends JFrame implements ActionListener{
         panelDrinks.setVisible(false);
         panelDessert .setVisible(true);
        }
+       else if (e.getSource() == addOrange) {
+            orangeQuantity++;
+            quantityOrangeField.setText(Integer.toString(orangeQuantity));
+            updateTotal();
+            subtractOrange.setEnabled(true); // Enable decrease button after adding
+            updateProductInfoField();
+            
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+                String sql = "UPDATE foods SET quantity = quantity - 1, sold = sold + 1 WHERE product_name = 'Orange Chicken'";
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+                System.out.println("Quantity for 'Orange Chicken' decreased by 1");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Database error!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } else if (e.getSource() == subtractOrange) {
+            if (orangeQuantity > 0) {
+                try {
+                    // Database update for decreasing quantity (replace with your actual product name)
+                    Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                    String sql = "UPDATE foods SET quantity = quantity + 1, sold = sold - 1 WHERE product_name = 'Orange Chicken'";
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate(sql);
+                    System.out.println("Quantity for 'Orange Chicken' increased by 1");
+
+                    // Update local product quantity and UI elements after successful database update
+                    orangeQuantity--;
+                    quantityOrangeField.setText(Integer.toString(orangeQuantity));
+                    updateTotal();
+                    if (orangeQuantity == 0) {
+                        subtractOrange.setEnabled(false); // Disable decrease button if quantity is 0
+                    }
+                    updateProductInfoField();
+                    connection.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Database error!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        //Kung Pao Chicken
+        } else if (e.getSource() == addKungpao) {
+            kungpaoQuantity++;
+            quantityKungpaoField.setText(Integer.toString(kungpaoQuantity));
+            updateTotal();
+            subtractKungpao.setEnabled(true); // Enable decrease button after adding
+            updateProductInfoField();
+            
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+                String sql = "UPDATE foods SET quantity = quantity - 1, sold = sold + 1 WHERE product_name = 'Kung Pao Chicken'";
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+                System.out.println("Quantity for 'Kung Pao Chicken' decreased by 1");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Database error!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } else if (e.getSource() == subtractKungpao) {
+            if (kungpaoQuantity > 0) {
+                try {
+                    // Database update for decreasing quantity (replace with your actual product name)
+                    Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                    String sql = "UPDATE foods SET quantity = quantity + 1, sold = sold - 1 WHERE product_name = 'Kung Pao Chicken'";
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate(sql);
+                    System.out.println("Quantity for 'Kung Pao Chicken' increased by 1");
+
+                    // Update local product quantity and UI elements after successful database update
+                    kungpaoQuantity--;
+                    quantityKungpaoField.setText(Integer.toString(kungpaoQuantity));
+                    updateTotal();
+                    if (kungpaoQuantity == 0) {
+                        subtractKungpao.setEnabled(false); // Disable decrease button if quantity is 0
+                    }
+                    updateProductInfoField();
+                    connection.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Database error!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        //Mushroom Chicken
+        }else if (e.getSource() == addMushroom) {
+            mushroomQuantity++;
+            quantityMushroomField.setText(Integer.toString(mushroomQuantity));
+            updateTotal();
+            subtractMushroom.setEnabled(true); // Enable decrease button after adding
+            updateProductInfoField();
+            
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+                String sql = "UPDATE foods SET quantity = quantity - 1, sold = sold + 1 WHERE product_name = 'Mushroom Chicken'";
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+                System.out.println("Quantity for 'Mushroom Chicken' decreased by 1");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Database error!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } else if (e.getSource() == subtractMushroom) {
+            if (mushroomQuantity > 0) {
+                try {
+                    // Database update for decreasing quantity (replace with your actual product name)
+                    Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                    String sql = "UPDATE foods SET quantity = quantity + 1, sold = sold - 1 WHERE product_name = 'Orange Chicken'";
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate(sql);
+                    System.out.println("Quantity for 'Orange Chicken' increased by 1");
+
+                    // Update local product quantity and UI elements after successful database update
+                    mushroomQuantity--;
+                    quantityMushroomField.setText(Integer.toString(mushroomQuantity));
+                    updateTotal();
+                    if (mushroomQuantity == 0) {
+                        subtractMushroom.setEnabled(false); // Disable decrease button if quantity is 0
+                    }
+                    updateProductInfoField();
+                    connection.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Database error!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        //Checkout
+        } else if (e.getSource() == btnCheckout) {
+            
+            String review = "Checkout:\n";
+            if (orangeQuantity > 0) {
+                review += "Orange Chicken: " + orangeQuantity + " x ₱" + orangePrice + " = ₱" + (orangeQuantity * orangePrice) + "\n";
+            }
+            if (kungpaoQuantity > 0) {
+                review += "Kung Pao Chicken: " + kungpaoQuantity + " x ₱" + kungpaoPrice + " = ₱" + (kungpaoQuantity * kungpaoPrice) + "\n";
+            }
+            if (mushroomQuantity > 0) {
+                review += "Mushroom Chicken: " + mushroomQuantity + " x ₱" + mushroomPrice + " = ₱" + (mushroomQuantity * mushroomPrice) + "\n";
+            }
+
+            review += "Total: $" + totalField.getText();
+            JOptionPane.showMessageDialog(this, review, "Order Details", JOptionPane.INFORMATION_MESSAGE);
         
+            orangeQuantity = 0;
+            kungpaoQuantity = 0;
+            mushroomQuantity = 0;
+            quantityOrangeField.setText("0");
+            quantityKungpaoField.setText("0");
+            quantityMushroomField.setText("0");
+            updateTotal();
+            subtractOrange.setEnabled(false); // Reset decrease buttons
+            subtractKungpao.setEnabled(false); // Reset decrease buttons
+            subtractMushroom.setEnabled(false); // Reset decrease buttons
+            updateProductInfoField();
+            
+        } 
+    }
+    
+    private void updateTotal() {
+        double total = orangeQuantity * orangePrice + kungpaoQuantity * kungpaoPrice + mushroomQuantity * mushroomPrice;
+        totalField.setText(String.format("%.2f", total));
+        // Update totalArea with the grand total
+        totalArea.setText(String.format(" Total: ₱%.2f", total));
+    }
+    
+    private void updateProductInfoField() {
+        StringBuilder productInfo = new StringBuilder();
+
+        // Add details for Product 1 (if selected)
+        if (orangeQuantity > 0) {
+            productInfo.append("Orange Chicken \n     Qty: ").append(orangeQuantity).append(" - subTotal: ₱").append(String.format("%.2f", orangeQuantity * orangePrice)).append("\n");
+        }
+
+        // Add details for Product 2 (if selected)
+        if (kungpaoQuantity > 0) {
+            if (productInfo.length() > 0) {
+                productInfo.append("\n"); // Add a newline if Product 1 is already displayed
+            }
+            productInfo.append("Kung Pao Chicken \n     Qty: ").append(kungpaoQuantity).append(" - subTotal: ₱").append(String.format("%.2f", kungpaoQuantity * kungpaoPrice)).append("\n");
+        }
+
+        // Add details for Product 3 (Mushroom Chicken)
+        if (mushroomQuantity > 0) {
+            if (productInfo.length() > 0) {
+                productInfo.append("\n"); // Add a newline if previous products are displayed
+            }
+            productInfo.append("Mushroom Chicken \n     Qty: ").append(mushroomQuantity).append(" - subTotal: ₱").append(String.format("%.2f", mushroomQuantity * mushroomPrice)).append("\n");
+        }
+
+        orderArea.setText(productInfo.toString());
     }
 }
