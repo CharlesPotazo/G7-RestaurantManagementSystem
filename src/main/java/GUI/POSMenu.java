@@ -279,7 +279,6 @@ public class POSMenu extends JFrame implements ActionListener{
                 //panelFood.add(    button or panel) ipasok sa loob ng panel
         
         //------Drink_Panel--------------
-        
         panelDrinks = new JPanel();
         panelDrinks.setBackground(Color.red);
         panelDrinks.setLayout(null);
@@ -292,7 +291,7 @@ public class POSMenu extends JFrame implements ActionListener{
         cokeQuantity = 0;
         
         Coke = new JLabel();
-        ImageIcon cokePic = new ImageIcon("coke.jpg");
+        ImageIcon cokePic = new ImageIcon("images/coke.jpg");
         Image coke = cokePic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
         Coke.setBounds(25, 30, 100, 80);
         Coke.setIcon(new ImageIcon(coke));
@@ -334,7 +333,7 @@ public class POSMenu extends JFrame implements ActionListener{
         spriteQuantity = 0;
         
         Sprite = new JLabel();
-        ImageIcon spritePic = new ImageIcon("sprite.jpg");
+        ImageIcon spritePic = new ImageIcon("images/sprite.jpg");
         Image sprite = spritePic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
         Sprite.setBounds(165, 30, 100, 80);
         Sprite.setIcon(new ImageIcon(sprite));
@@ -373,7 +372,6 @@ public class POSMenu extends JFrame implements ActionListener{
         
         
         //------Dessert_Panel--------
-        
         panelDessert = new JPanel();
         panelDessert.setBackground(Color.BLUE);
         panelDessert.setLayout(null);
@@ -386,7 +384,7 @@ public class POSMenu extends JFrame implements ActionListener{
         ubeQuantity = 0;
         
         Ube = new JLabel();
-        ImageIcon ubePic = new ImageIcon("ubepastillas.jpg");
+        ImageIcon ubePic = new ImageIcon("images/ubepastillas.jpg");
         Image ube = ubePic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
         Ube.setBounds(25, 30, 100, 80);
         Ube.setIcon(new ImageIcon(ube));
@@ -428,7 +426,7 @@ public class POSMenu extends JFrame implements ActionListener{
         mangoQuantity = 0;
         
         Mango = new JLabel();
-        ImageIcon mangoPic = new ImageIcon("mangosago.jpg");
+        ImageIcon mangoPic = new ImageIcon("images/mangosago.jpg");
         Image mango = mangoPic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
         Mango.setBounds(165, 30, 100, 80);
         Mango.setIcon(new ImageIcon(mango));
@@ -465,9 +463,7 @@ public class POSMenu extends JFrame implements ActionListener{
         squareMango.setVisible(true);
         panelDessert.add(squareMango);
         
-        //-------designs-----------------
-        
-        
+        //-------Designs-----------------
         Logo = new JLabel(); //Background
         ImageIcon logoPic = new ImageIcon("Images/Logo.png");
         Image logo = logoPic.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -811,16 +807,16 @@ public class POSMenu extends JFrame implements ActionListener{
             if (mushroomQuantity > 0) {
                 review += "Mushroom Chicken: " + mushroomQuantity + " x ₱" + mushroomPrice + " = ₱" + (mushroomQuantity * mushroomPrice) + "\n";
             }
-             if (cokeQuantity > 0) {
+            if (cokeQuantity > 0) {
                 review += "Coke: " + cokeQuantity + " x ₱" + cokePrice + " = ₱" + (cokeQuantity * cokePrice) + "\n";
             }
-              if (spriteQuantity > 0) {
+            if (spriteQuantity > 0) {
                 review += "Sprite: " + spriteQuantity + " x ₱" + spritePrice + " = ₱" + (spriteQuantity * spritePrice) + "\n";
             }
-               if (ubeQuantity > 0) {
+            if (ubeQuantity > 0) {
                 review += "Ube Pastillas: " + ubeQuantity + " x ₱" + ubePrice + " = ₱" + (ubeQuantity * ubePrice) + "\n";
             }
-                if (mangoQuantity > 0) {
+            if (mangoQuantity > 0) {
                 review += "Mango Sago: " + mangoQuantity + " x ₱" + mangoPrice + " = ₱" + (mangoQuantity * mangoPrice) + "\n";
             }
 
