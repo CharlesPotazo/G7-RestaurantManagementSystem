@@ -292,7 +292,7 @@ public class POSMenu extends JFrame implements ActionListener{
         cokeQuantity = 0;
         
         Coke = new JLabel();
-        ImageIcon cokePic = new ImageIcon("coke.jpg");
+        ImageIcon cokePic = new ImageIcon("images/coke.jpg");
         Image coke = cokePic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
         Coke.setBounds(25, 30, 100, 80);
         Coke.setIcon(new ImageIcon(coke));
@@ -334,7 +334,7 @@ public class POSMenu extends JFrame implements ActionListener{
         spriteQuantity = 0;
         
         Sprite = new JLabel();
-        ImageIcon spritePic = new ImageIcon("sprite.jpg");
+        ImageIcon spritePic = new ImageIcon("images/sprite.jpg");
         Image sprite = spritePic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
         Sprite.setBounds(165, 30, 100, 80);
         Sprite.setIcon(new ImageIcon(sprite));
@@ -386,7 +386,7 @@ public class POSMenu extends JFrame implements ActionListener{
         ubeQuantity = 0;
         
         Ube = new JLabel();
-        ImageIcon ubePic = new ImageIcon("ubepastillas.jpg");
+        ImageIcon ubePic = new ImageIcon("images/ubepastillas.jpg");
         Image ube = ubePic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
         Ube.setBounds(25, 30, 100, 80);
         Ube.setIcon(new ImageIcon(ube));
@@ -428,7 +428,7 @@ public class POSMenu extends JFrame implements ActionListener{
         mangoQuantity = 0;
         
         Mango = new JLabel();
-        ImageIcon mangoPic = new ImageIcon("mangosago.jpg");
+        ImageIcon mangoPic = new ImageIcon("images/mangosago.jpg");
         Image mango = mangoPic.getImage().getScaledInstance(100, 80, Image.SCALE_SMOOTH);
         Mango.setBounds(165, 30, 100, 80);
         Mango.setIcon(new ImageIcon(mango));
