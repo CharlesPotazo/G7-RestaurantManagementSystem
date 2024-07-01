@@ -6,8 +6,10 @@ import java.util.*;
 
 public class SqlDbData {
 
+    List<Food> foods;
+
     // Lagi po nag poprompt na need ng throws kaya cinlick lang po namin
-    private Connection getConnection() throws SQLException  {
+    private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/records", "root", "Charuzu03");
     }
 
@@ -17,17 +19,15 @@ public class SqlDbData {
         List<User> users = new ArrayList<User>();
 
         //same po need daw po lagyan ng try and catch tas cinlick lang po namin yung hint 
-        try (Connection connection = getConnection();
-             PreparedStatement selectCommand = connection.prepareStatement(selectStatement);
-             ResultSet reader = selectCommand.executeQuery()) {
-            
+        try (Connection connection = getConnection(); PreparedStatement selectCommand = connection.prepareStatement(selectStatement); ResultSet reader = selectCommand.executeQuery()) {
+
             while (reader.next()) {
                 String accountNumber = reader.getString("accountNumber");
                 String userPassword = reader.getString("user_password");
                 String userName = reader.getString("userName");
 
                 User readUser = new User();
-                readUser.accountNumber = accountNumber;  
+                readUser.accountNumber = accountNumber;
                 readUser.user_password = userPassword;
                 readUser.userName = userPassword;
 
@@ -38,10 +38,77 @@ public class SqlDbData {
         }
         return users;
     }
-    
-    public User GetUserByAccNum(String accountNumber)
-    {
- 
-        return null;
+
+    public List<Food> getFoods() {
+        String selectStatement = "SELECT foodName,price,quantity,sold FROM stackedfoods";
+        List<Food> foods = new ArrayList<Food>();
+
+        //same po need daw po lagyan ng try and catch tas cinlick lang po namin yung hint 
+        try (Connection connection = getConnection(); PreparedStatement selectCommand = connection.prepareStatement(selectStatement); ResultSet reader = selectCommand.executeQuery()) {
+
+            while (reader.next()) {
+                String foodName = reader.getString("foodName");
+                int price = reader.getInt("price");
+                int quantity = reader.getInt("quantity");
+                int sold = reader.getInt("sold");
+
+                Food readFood = new Food();
+                readFood.foodName = foodName;
+                readFood.price = price;
+                readFood.quantity = quantity;
+                readFood.sold = sold;
+
+                foods.add(readFood);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return foods;
     }
+
+    public Food GetFoodByName(String foodName) {
+        String findCommand = "SELECT * FROM stackedfoods WHERE foodName = ?";
+        Food food = null;
+
+        try (Connection connection = getConnection(); PreparedStatement selectCommand = connection.prepareStatement(findCommand)) {
+
+            selectCommand.setString(1, foodName);
+
+            try (ResultSet reader = selectCommand.executeQuery()) {
+                if (reader.next()) {
+                    food = new Food();
+                    food.foodName = reader.getString("foodName");
+                    food.price = reader.getInt("price");
+                    food.quantity = reader.getInt("quantity");
+                    food.sold = reader.getInt("sold");
+                }
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return food;
+    }
+
+    public void updateFood(Food food) {
+        String updateStatement = "UPDATE stackedfoods SET quantity = ? WHERE foodName = ?";
+
+        try (Connection connection = getConnection(); PreparedStatement updateCommand = connection.prepareStatement(updateStatement)) {
+
+        updateCommand.setInt(1, food.quantity); 
+        updateCommand.setString(2, food.foodName);
+
+        updateCommand.executeUpdate();
+        
+    } catch (SQLException exception) {
+        exception.printStackTrace();
+    }
+}
+    
+    
+    
+    
+    
+    
+   
 }

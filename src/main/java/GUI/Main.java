@@ -1,5 +1,5 @@
 package GUI;
-
+import BusinessLogic.FoodService;
 import java.awt.EventQueue;
 
 public class Main {
@@ -15,8 +15,8 @@ public class Main {
 //            }
 //        });
 
+new POSMenu();
 
-   new POSMenu();
     }
     
 }
