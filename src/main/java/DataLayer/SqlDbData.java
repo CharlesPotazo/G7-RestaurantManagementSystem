@@ -91,12 +91,13 @@ public class SqlDbData {
     }
 
     public void updateFood(Food food) {
-        String updateStatement = "UPDATE stackedfoods SET quantity = ? WHERE foodName = ?";
+        String updateStatement = "UPDATE stackedfoods SET quantity = ?, sold = ? WHERE foodName = ?";
 
         try (Connection connection = getConnection(); PreparedStatement updateCommand = connection.prepareStatement(updateStatement)) {
 
         updateCommand.setInt(1, food.quantity); 
-        updateCommand.setString(2, food.foodName);
+        updateCommand.setInt(2, food.sold);
+        updateCommand.setString(3, food.foodName);
 
         updateCommand.executeUpdate();
         

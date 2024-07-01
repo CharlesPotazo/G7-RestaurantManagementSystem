@@ -34,9 +34,9 @@ public class FoodService {
         Food food = foodDatabase.GetFoodByName(foodName);
 
    
-        if (food != null && food.quantity >= amount) {
+        if (food != null) {
         
-            food.quantity += amount;
+            food.sold += amount;
 
          
             foodDatabase.updateFood(food);
@@ -45,11 +45,4 @@ public class FoodService {
     }
     
 
-    public double calculateTotal(List<Food> foodItems) {
-        double total = 0;
-        for (Food item : foodItems) {
-            total += item.price * item.quantity;
-        }
-        return total;
-    }
 }

@@ -288,26 +288,19 @@ public class POSMenu extends JFrame implements ActionListener {
             calculateTotal();
 
         } else if (e.getSource() == btnPay) {
-                           //pag cinlick madadagdagan sa database
+                           //pag cinlick mababawasann quantity sa database
                             //
-                        foodService.SubtractQuantity("kungPaoChicken", Integer.parseInt(nmbrkungPaoChicken.getText().trim()));
-                      
-                        
-                        foodService.SubtractQuantity("orangeChicken", Integer.parseInt(nmbrorangeChicken.getText().trim()));
-                      
-                        
-                        foodService.SubtractQuantity("mushroomChicken", Integer.parseInt(nmbrmushroomChicken.getText().trim()));
-                        
-                        
+            foodService.SubtractQuantity("kungPaoChicken", Integer.parseInt(nmbrkungPaoChicken.getText().trim()));
+            foodService.SubtractQuantity("orangeChicken", Integer.parseInt(nmbrorangeChicken.getText().trim()));
+            foodService.SubtractQuantity("mushroomChicken", Integer.parseInt(nmbrmushroomChicken.getText().trim()));
+            
+            //pag cinlick madadagdagan soldsa database
+            foodService.AddSoldQuantity("kungPaoChicken", Integer.parseInt(nmbrkungPaoChicken.getText().trim()));
+            foodService.AddSoldQuantity("orangeChicken", Integer.parseInt(nmbrorangeChicken.getText().trim()));
+            foodService.AddSoldQuantity("mushroomChicken", Integer.parseInt(nmbrmushroomChicken.getText().trim()));
+
         }
 
-    }
-    
-    public void addSoldQuantity(){
-    foodService.AddSoldQuantity("kungPaoChicken", Integer.parseInt(nmbrkungPaoChicken.getText().trim()));
-    foodService.AddSoldQuantity("orangeChicken", Integer.parseInt(nmbrorangeChicken.getText().trim()));
-    foodService.AddSoldQuantity("mushroomChicken", Integer.parseInt(nmbrmushroomChicken.getText().trim()));
-                        
     }
     
 }
