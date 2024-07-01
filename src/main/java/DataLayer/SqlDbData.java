@@ -10,7 +10,7 @@ public class SqlDbData {
 
     // Lagi po nag poprompt na need ng throws kaya cinlick lang po namin
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/records", "root", "Charuzu03");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/reports", "root", "@bleusagun_253803");
     }
 
     // Method getting all users from database
