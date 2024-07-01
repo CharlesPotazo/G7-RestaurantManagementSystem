@@ -298,9 +298,7 @@ public class POSMenu extends JFrame implements ActionListener {
                         
                         foodService.SubtractQuantity("mushroomChicken", Integer.parseInt(nmbrmushroomChicken.getText().trim()));
                         
-                         foodService.AddSoldQuantity("kungPaoChicken", Integer.parseInt(nmbrkungPaoChicken.getText().trim()));
-    foodService.AddSoldQuantity("orangeChicken", Integer.parseInt(nmbrorangeChicken.getText().trim()));
-    foodService.AddSoldQuantity("mushroomChicken", Integer.parseInt(nmbrmushroomChicken.getText().trim()));
+                        
         }
 
     }
