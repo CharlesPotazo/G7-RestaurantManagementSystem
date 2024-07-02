@@ -1,7 +1,7 @@
 
 package GUI;
 
-import Models.Food;
+import Models.Food ;
 import BusinessLogic.FoodService;
 import java.awt.*;
 import java.awt.event.*;
