@@ -10,7 +10,7 @@ public class SqlDbData {
 
     // Lagi po nag poprompt na need ng throws kaya cinlick lang po namin
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/reports", "root", "@bleusagun_253803");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/records", "root", "Charuzu03");
     }
 
     // Method getting all users from database
@@ -40,7 +40,7 @@ public class SqlDbData {
     }
 
     public List<Food> getFoods() {
-        String selectStatement = "SELECT foodName,price,quantity,sold FROM stackedfoods";
+        String selectStatement = "SELECT foodName,price,quantity,sold FROM stackedfoods ORDER BY sold DESC";
         List<Food> foods = new ArrayList<Food>();
 
         //same po need daw po lagyan ng try and catch tas cinlick lang po namin yung hint 
@@ -95,21 +95,14 @@ public class SqlDbData {
 
         try (Connection connection = getConnection(); PreparedStatement updateCommand = connection.prepareStatement(updateStatement)) {
 
-        updateCommand.setInt(1, food.quantity); 
-        updateCommand.setInt(2, food.sold);
-        updateCommand.setString(3, food.foodName);
+            updateCommand.setInt(1, food.quantity);
+            updateCommand.setInt(2, food.sold);
+            updateCommand.setString(3, food.foodName);
 
-        updateCommand.executeUpdate();
-        
-    } catch (SQLException exception) {
-        exception.printStackTrace();
+            updateCommand.executeUpdate();
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
-}
-    
-    
-    
-    
-    
-    
-   
 }

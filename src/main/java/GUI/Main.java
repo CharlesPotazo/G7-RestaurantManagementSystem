@@ -15,8 +15,7 @@ public class Main {
 //            }
 //        });
 
-new POSMenu();
-
+new ReportsMenu();
     }
     
 }
