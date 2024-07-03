@@ -8,7 +8,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() { //Finollow po namin yung suggestion niyo. Thank You po
             @Override
             public void run() {
-                Login login = new Login();
+                InventoryMenu login = new InventoryMenu();
                 login.setVisible(true);
             }
         });

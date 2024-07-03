@@ -51,5 +51,18 @@ public class FoodService {
             foodDatabase.updateFood(food);
         }
     }
+    public void AddQuantity(String foodName, int amount) {
+        Food food = foodDatabase.GetFoodByName(foodName);
+
+   
+        if (food != null) {
+        
+            food.quantity += amount;
+
+         
+            foodDatabase.updateFood(food);
+        
+        }
+    }
 
 }
