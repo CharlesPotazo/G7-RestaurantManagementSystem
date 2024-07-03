@@ -104,6 +104,7 @@ public class SqlDbData {
 
             updateCommand.executeUpdate();
 
+            
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
