@@ -9,11 +9,11 @@ public class UserService {
     private SqlDbData sqlDbData;
 
     public UserService() {
-        this.sqlDbData = new SqlDbData();
+        this.sqlDbData = new SqlDbData(); // the SqlDbData is initialized so that sqlDbData is ready when methods of UserService need the SqlDbData
     }
 
     public List<User> getAllUsers() {
-        return sqlDbData.getUsers();
+        return sqlDbData.getUsers(); //get all users from the sql that gui can use
     }
 
     // Method po na iveverify kung existing yung user thru accNumber and password
@@ -28,7 +28,5 @@ public class UserService {
         }
         return result;
     }
-    
-    
-    
+
 }

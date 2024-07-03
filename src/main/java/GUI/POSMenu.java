@@ -26,7 +26,7 @@ public class POSMenu extends JFrame implements ActionListener {
         setLayout(null);
         setResizable(false);
         setLocationRelativeTo(null);
-        setTitle("POS");
+        setTitle("POS Menu");
         getContentPane().setBackground(Color.white);
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 
@@ -288,16 +288,18 @@ public class POSMenu extends JFrame implements ActionListener {
             panelFood.setVisible(false);
             panelDrinks.setVisible(false);
             panelDessert.setVisible(true);
+
         } //-----------Change Frames------------  
-         else if (e.getSource() == btnInventory) {
-            // new InventoryMenu();
-            //this.dispose();
+        else if (e.getSource() == btnInventory) {
+            new InventoryMenu();
+            this.dispose();
         } else if (e.getSource() == btnReports) {
             new ReportsMenu();  // Go to ReportsMenu
             this.dispose(); //dispose current Frame po
         } else if (e.getSource() == btnWasteTracking) {
             new WasteMenu();
             this.dispose();
+
         } //-----------Inputting foood in the table------------
         else if (e.getSource() == kungPaoChicken) {
             int quantity = Integer.valueOf(nmbrkungPaoChicken.getText());
@@ -309,7 +311,7 @@ public class POSMenu extends JFrame implements ActionListener {
             int quantity = Integer.valueOf(nmbrmushroomChicken.getText());
             quantity++;
             nmbrmushroomChicken.setText(String.valueOf(quantity));
-            addTable("Mushroom Chicken", quantity, 200.00);
+            addTable("Mushroom Chicken", quantity, 150.00);
             calculateTotal();
         } else if (e.getSource() == orangeChicken) {
             int quantity = Integer.valueOf(nmbrorangeChicken.getText());
@@ -321,13 +323,13 @@ public class POSMenu extends JFrame implements ActionListener {
             int quantity = Integer.valueOf(nmbrCoke.getText());
             quantity++;
             nmbrCoke.setText(String.valueOf(quantity));
-            addTable("Coke", quantity, 79.00);
+            addTable("Coke", quantity, 50.00);
             calculateTotal();
         } else if (e.getSource() == sprite) {
             int quantity = Integer.valueOf(nmbrSprite.getText());
             quantity++;
             nmbrSprite.setText(String.valueOf(quantity));
-            addTable("Sprite", quantity, 79.00);
+            addTable("Sprite", quantity, 50.00);
             calculateTotal();
         } else if (e.getSource() == ubepastillas) {
             int quantity = Integer.valueOf(nmbrUbePastillas.getText());

@@ -12,7 +12,7 @@ public class WasteMenu extends JFrame implements ActionListener {
 
     private JPanel whiteSquare, grayRectangle, divider, whiteRectangle, whiteRectangle2;
     private JLabel txtMessage, txtTopWaste, txtTopTitle, txtLowestWaste, BackGroundImage, Logo, txtWaste;
-    private JButton btnPOS, btnReports, btnnventory, btnAddWaste, btnAdd, btnReturn;
+    private JButton btnPOS, btnReports, btnAddWaste, btnAdd, btnReturn, btnInventory;
     private JTable foodTable;
     private JTextField txtFldwasteCount;
     private JComboBox foodComboBox;
@@ -103,43 +103,43 @@ public class WasteMenu extends JFrame implements ActionListener {
         btnReturn.addActionListener(this);
         whiteRectangle2.add(btnReturn);
         //------------Buttons---------
-        btnPOS = new JButton("POS"); // POS Button
+        btnPOS = new JButton("POS");//POS Button
         btnPOS.setBounds(30, 150, 100, 27);
         btnPOS.setBackground(new Color(0, 0, 0, 0));
         btnPOS.setOpaque(false);
         btnPOS.setBorderPainted(false);
         btnPOS.setForeground(Color.white);
-        btnPOS.setFont(new Font("Impact", Font.PLAIN, 27));
+        btnPOS.setFont(new Font("impact", Font.PLAIN, 27));
         btnPOS.addActionListener(this);
         add(btnPOS);
 
-        txtWaste = new JLabel("Waste");
-        txtWaste.setBounds(0, 250, 150, 27);
+        btnInventory = new JButton("Inventory");//Inventory Button
+        btnInventory.setBounds(0, 250, 150, 27);
+        btnInventory.setBackground(new Color(0, 0, 0, 0));
+        btnInventory.setOpaque(false);
+        btnInventory.setBorderPainted(false);
+        btnInventory.setForeground(Color.white);
+        btnInventory.setFont(new Font("impact", Font.PLAIN, 27));
+        btnInventory.addActionListener(this);
+        add(btnInventory);
+
+        btnReports = new JButton("Reports");//Reports Button
+        btnReports.setBounds(10, 350, 130, 27);
+        btnReports.setBackground(new Color(0, 0, 0, 0));
+        btnReports.setOpaque(false);
+        btnReports.setBorderPainted(false);
+        btnReports.setForeground(Color.white);
+        btnReports.setFont(new Font("impact", Font.PLAIN, 27));
+        btnReports.addActionListener(this);
+        add(btnReports);
+
+        txtWaste = new JLabel("Waste");//Waste Button
+        txtWaste.setBounds(40, 450, 150, 27);
         txtWaste.setBackground(new Color(0, 0, 0, 0));
         txtWaste.setOpaque(false);
         txtWaste.setForeground(Color.white);
-        txtWaste.setFont(new Font("Impact", Font.PLAIN, 27));
+        txtWaste.setFont(new Font("impact", Font.PLAIN, 27));
         add(txtWaste);
-
-        btnReports = new JButton("Reports");
-        btnReports.setBounds(30, 350, 130, 27);
-        btnReports.setBorderPainted(false);
-        btnReports.setBackground(new Color(0, 0, 0, 0));
-        btnReports.setOpaque(false);
-        btnReports.setForeground(Color.white);
-        btnReports.addActionListener(this);
-        btnReports.setFont(new Font("Impact", Font.PLAIN, 27));
-        add(btnReports);
-
-//        btnWasteTracking = new JButton("Waste");
-//        btnWasteTracking.setBounds(0, 450, 150, 27);
-//        btnWasteTracking.setBackground(new Color(0, 0, 0, 0));
-//        btnWasteTracking.setOpaque(false);
-//        btnWasteTracking.setBorderPainted(false);
-//        btnWasteTracking.setForeground(Color.white);
-//        btnWasteTracking.setFont(new Font("Impact", Font.PLAIN, 27));
-//        btnWasteTracking.addActionListener(this);
-//        add(btnWasteTracking);
 
         //-------designs-----------------
         Logo = new JLabel(); // Logo
@@ -176,16 +176,15 @@ public class WasteMenu extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //change frame
         if (e.getSource() == btnPOS) {
             new POSMenu();
             this.dispose();
-       /*} else if (e.getSource() == btnInventory) {
- // new InventoryMenu();
-            //his.dispose();
-        } else if (e.getSource() == btnWasteTracking) {
-
-        } else if (e.getSource() == btnReport) {
-new POSMenu();*/
+        } else if (e.getSource() == btnInventory) {
+            new InventoryMenu();
+            this.dispose();
+        } else if (e.getSource() == btnReports) {
+            new ReportsMenu();
             this.dispose();
         } else if (e.getSource() == btnAddWaste) {
             whiteRectangle.setVisible(false);
@@ -204,7 +203,7 @@ new POSMenu();*/
                     foodService.AddWasteCountQuantity(selectedFood, wasteCount);
                     foodService.SubtractQuantity(selectedFood, wasteCount);
                     txtFldwasteCount.setText(""); // Clear the waste count text field
-
+                    JOptionPane.showMessageDialog(this, "Successfully Added", "Added", JOptionPane.INFORMATION_MESSAGE);
                     PutFoodInTheTable(); //reload the table
 
                 } catch (NumberFormatException ex) {

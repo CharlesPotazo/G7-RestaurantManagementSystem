@@ -103,9 +103,9 @@ public class MainMenu extends JFrame implements ActionListener {
 
         BackGroundImage = new JLabel();
         ImageIcon backgroundPic = new ImageIcon("Images/Background1.jpg");
-        Image bg = backgroundPic.getImage().getScaledInstance(900, 620, Image.SCALE_SMOOTH);
+        Image bg = backgroundPic.getImage().getScaledInstance(1000, 720, Image.SCALE_SMOOTH);
         BackGroundImage.setIcon(new ImageIcon(bg));
-        BackGroundImage.setBounds(0, 0, 900, 620);
+        BackGroundImage.setBounds(0, -55, 1000, 720);
         add(BackGroundImage);
         setVisible(true);
     }
@@ -116,14 +116,14 @@ public class MainMenu extends JFrame implements ActionListener {
             new POSMenu();  // Go to POS Class po
             this.dispose(); //dispose current Frame po
         } else if (e.getSource() == btnInventory) {
-            // new InventoryMenu();
-            //his.dispose();
+            new InventoryMenu(); // Go to Inventory Class po
+            this.dispose(); //dispose current Frame po
         } else if (e.getSource() == btnReports) {
             new ReportsMenu();  // Go to ReportsMenu
             this.dispose(); //dispose current Frame po
         } else if (e.getSource() == btnWasteTracking) {
-            new WasteMenu();
-            this.dispose();
+            new WasteMenu(); // Go to WasteMenu Class po
+            this.dispose(); //dispose current Frame po
         }
     }
 }

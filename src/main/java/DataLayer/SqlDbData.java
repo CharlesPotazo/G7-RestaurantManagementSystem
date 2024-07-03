@@ -14,7 +14,7 @@ public class SqlDbData {
     }
 
     // Method getting all users from database
-    public List<User> getUsers() {
+    public List<User> getUsers() { //this string connection Get all the user
         String selectStatement = "SELECT accountNumber, user_password, userName FROM employees";
         List<User> users = new ArrayList<User>();
 
@@ -39,7 +39,7 @@ public class SqlDbData {
         return users;
     }
 
-    public List<Food> getFoods() {
+    public List<Food> getFoods() { //this string connection Get all the food 
         String selectStatement = "SELECT foodName,price,quantity,sold, wasteCount FROM stackedfoods ORDER BY sold DESC";
         List<Food> foods = new ArrayList<Food>();
 
@@ -67,7 +67,7 @@ public class SqlDbData {
         return foods;
     }
 
-    public Food GetFoodByName(String foodName) {
+    public Food GetFoodByName(String foodName) { //this string connection Get the food by their name
         String findCommand = "SELECT * FROM stackedfoods WHERE foodName = ?";
         Food food = null;
 
@@ -92,7 +92,7 @@ public class SqlDbData {
         return food;
     }
 
-    public void updateFood(Food food) {
+    public void updateFood(Food food) {  //this string connection update if there are needed changes in out food data base
         String updateStatement = "UPDATE stackedfoods SET quantity = ?, sold = ?, wasteCount = ? WHERE foodName = ?";
 
         try (Connection connection = getConnection(); PreparedStatement updateCommand = connection.prepareStatement(updateStatement)) {

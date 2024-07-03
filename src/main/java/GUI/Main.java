@@ -12,6 +12,6 @@ public class Main {
                 login.setVisible(true);
             }
         });
-    } // Good Day po Sir tinry po namin mag 3 Layered which is GUI,Business Logic, and Data Layer which we will expain po sa presentation thank you po
+    } // Good Day po Sir We tried to integrate the pillars of OOP by seperating our concern which are the GUI, Business Logic, Data Layer, Models 
 }
 

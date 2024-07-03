@@ -13,16 +13,16 @@ public class ReportsMenu extends JFrame implements ActionListener {
     private JPanel whiteSquare, grayRectangle, divider, whiteRectangle;
     private JLabel txtMessage, txtTopSold, txtLowestSold, BackGroundImage, Logo, txtReports;
     private JButton btnPOS, btnInventory, btnWasteTracking;
-    private JTable foodTable;
+    private JTable foodTable; // will act as teext area for order 
     private DefaultTableModel table;
-    FoodService foodService = new FoodService();
+    private FoodService foodService = new FoodService();  //private po namin so that yung class lang po nito yung makakagamit 
 
     ReportsMenu() {
         setSize(900, 600);
         setLayout(null);
         setResizable(false);
         setLocationRelativeTo(null);
-        setTitle("Menu");
+        setTitle("Reports Menu");
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 
         //--------Text-------------
@@ -129,7 +129,7 @@ public class ReportsMenu extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private void PutFoodInTheTable() { //put the food from our database
+    private void PutFoodInTheTable() { //put the food from our stackedfoods database po
         List<Food> foods = foodService.getAllFoods(); // get all food from our business Logic
 
         table.setRowCount(0);
@@ -138,7 +138,7 @@ public class ReportsMenu extends JFrame implements ActionListener {
             table.addRow(new Object[]{food.foodName, food.sold});
         }
         SetTextToHighestSale(); // We add the foods po before we set the texts 
-        SetTextToLowestSale(); //
+        SetTextToLowestSale(); // 
     }
 
     private void SetTextToHighestSale() {
@@ -153,7 +153,7 @@ public class ReportsMenu extends JFrame implements ActionListener {
     }
 
     private void SetTextToLowestSale() {
-        int lastRowIndex = table.getRowCount() - 1;
+        int lastRowIndex = table.getRowCount() - 1; //index po ng pinakalast na row
 
         if (lastRowIndex >= 0) {
             Object foodName = table.getValueAt(lastRowIndex, 0); // First column 
@@ -171,8 +171,8 @@ public class ReportsMenu extends JFrame implements ActionListener {
             new POSMenu();
             this.dispose();
         } else if (e.getSource() == btnInventory) {
-            // new InventoryMenu();
-            //his.dispose();
+            new InventoryMenu();
+            this.dispose();
         } else if (e.getSource() == btnWasteTracking) {
             new WasteMenu();
             this.dispose();

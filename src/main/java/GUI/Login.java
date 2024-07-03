@@ -12,7 +12,7 @@ public class Login extends JFrame implements ActionListener {
     private JPasswordField passTxtFld;
     private JButton signinButton;
     private JPanel whiteSquare, yellowSquare;
-    UserService userService = new UserService();
+    private UserService userService = new UserService(); //class of our business logic
 
     Login() {
 
