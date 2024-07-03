@@ -4,23 +4,22 @@ import BusinessLogic.FoodService;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
-import java.util.Vector;
+import java.util.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
 public class POSMenu extends JFrame implements ActionListener {
 
-    private JPanel panelFood, panelDrinks, panelDessert;
+    private JPanel panelFood, panelDrinks, panelDessert; //instead of switching frames po per category. We used po switching panels
     private JPanel whiteSquare, grayRectangle, divider;
     private JLabel POS, Logo, TotalTxt, TotalNmbr;
-    private JButton btnInventory, btnReports, btnWasteTracking;
-    private JButton btnFood, btnDrinks, btnDessert, btnPay, btnCancel;
-    private JButton kungPaoChicken, mushroomChicken, orangeChicken, coke, sprite, ubepastillas, mangosago;
-    private JLabel nmbrkungPaoChicken, nmbrmushroomChicken, nmbrorangeChicken, nmbrCoke, nmbrSprite, nmbrUbePastillas, nmbrMangoSago;
-    private JTable table;
+    private JButton btnInventory, btnReports, btnWasteTracking;  //buttons at the side
+    private JButton btnFood, btnDrinks, btnDessert, btnPay, btnCancel; //main buttons
+    private JButton kungPaoChicken, mushroomChicken, orangeChicken, coke, sprite, ubepastillas, mangosago; // Dishes Button
+    private JLabel nmbrkungPaoChicken, nmbrmushroomChicken, nmbrorangeChicken, nmbrCoke, nmbrSprite, nmbrUbePastillas, nmbrMangoSago;//Counter po ng dishes kung ilan po yung order per item that will be used po to minus in our database
+    private JTable table; // this JTable will act as text order area po for keeping track of orders
     private JScrollPane scrollPane;
-    FoodService foodService = new FoodService();
+    private FoodService foodService = new FoodService(); //private po namin so that yung class lang po nito yung makakagamit 
 
     POSMenu() {
         setSize(900, 600);
@@ -32,7 +31,7 @@ public class POSMenu extends JFrame implements ActionListener {
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 
         //------Text Area Order-------
-        String[] columnNames = {"Food", "Quantity", "Price"};
+        String[] columnNames = {"Food", "Quantity", "Price"}; //We used table insteaed of text area so that repeating order will not append 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
 
@@ -44,17 +43,16 @@ public class POSMenu extends JFrame implements ActionListener {
         add(scrollPane);
 
         //------------Buttons---------
-        
         TotalTxt = new JLabel("Total:");
         TotalTxt.setFont(new Font("arimo", Font.PLAIN, 15));
         TotalTxt.setBounds(660, 450, 100, 20);
         add(TotalTxt);
-        
-        TotalNmbr  = new JLabel("0");
+
+        TotalNmbr = new JLabel("0");
         TotalNmbr.setFont(new Font("arimo", Font.PLAIN, 15));
         TotalNmbr.setBounds(770, 450, 100, 20);
         add(TotalNmbr);
-        
+
         btnPay = new JButton("Pay");
         btnPay.setBackground(new Color(253, 190, 2));
         btnPay.setForeground(Color.black);
@@ -63,7 +61,7 @@ public class POSMenu extends JFrame implements ActionListener {
         btnPay.setBorderPainted(false);
         btnPay.addActionListener(this);
         add(btnPay);
-        
+
         btnCancel = new JButton("Cancel");
         btnCancel.setBackground(new Color(253, 190, 2));
         btnCancel.setForeground(Color.black);
@@ -72,7 +70,7 @@ public class POSMenu extends JFrame implements ActionListener {
         btnCancel.setBorderPainted(false);
         btnCancel.addActionListener(this);
         add(btnCancel);
-        
+
         btnFood = new JButton("Food");
         btnFood.setBackground(new Color(253, 190, 2));
         btnFood.setForeground(Color.black);
@@ -185,11 +183,11 @@ public class POSMenu extends JFrame implements ActionListener {
 
         //------Drink_Panel--------------
         panelDrinks = new JPanel();
-        panelDrinks.setBackground(Color.red);
+        panelDrinks.setBackground(new Color(87, 88, 90));
         panelDrinks.setBounds(170, 100, 470, 500);
         panelDrinks.setVisible(false);
         add(panelDrinks);
-        
+
         coke = new JButton("Coke"); //kungpaockn
         coke.setFont(new Font("impact", Font.PLAIN, 11));
         coke.setBounds(10, 10, 120, 140);
@@ -202,7 +200,7 @@ public class POSMenu extends JFrame implements ActionListener {
         nmbrCoke = new JLabel("0", SwingConstants.CENTER);
         nmbrCoke.setBounds(10, 150, 120, 140);
         panelDrinks.add(coke);
-        
+
         sprite = new JButton("Sprite"); //kungpaockn
         sprite.setFont(new Font("impact", Font.PLAIN, 11));
         sprite.setBounds(150, 10, 120, 140);
@@ -218,11 +216,11 @@ public class POSMenu extends JFrame implements ActionListener {
 
         //------Dessert_Panel--------
         panelDessert = new JPanel();
-        panelDessert.setBackground(Color.BLUE);
+        panelDessert.setBackground(new Color(87, 88, 90));
         panelDessert.setBounds(170, 100, 470, 500);
         panelDessert.setVisible(false);
         add(panelDessert);
-        
+
         ubepastillas = new JButton("Ube Pastillas"); //kungpaockn
         ubepastillas.setFont(new Font("impact", Font.PLAIN, 11));
         ubepastillas.setBounds(10, 10, 120, 140);
@@ -235,7 +233,7 @@ public class POSMenu extends JFrame implements ActionListener {
         nmbrUbePastillas = new JLabel("0", SwingConstants.CENTER);
         nmbrUbePastillas.setBounds(10, 150, 120, 140);
         panelDessert.add(ubepastillas);
-        
+
         mangosago = new JButton("Mango Sago"); //kungpaockn
         mangosago.setFont(new Font("impact", Font.PLAIN, 11));
         mangosago.setBounds(150, 10, 120, 140);
@@ -275,39 +273,6 @@ public class POSMenu extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private void addTable(String name, int quantity, double price) {
-        DefaultTableModel dt = (DefaultTableModel) table.getModel();
-        DecimalFormat df = new DecimalFormat("0.00");
-        double totPrice = price * quantity;
-        String totalPrice = df.format(totPrice);
-
-        for (int row = 0; row < table.getRowCount(); row++) {
-            if (name.equals(table.getValueAt(row, 0))) {
-                dt.removeRow(table.convertRowIndexToModel(row));
-            }
-        }
-
-        Vector<Object> rowData = new Vector<>();
-        rowData.add(name);
-        rowData.add(quantity);
-        rowData.add(totalPrice);
-
-        dt.addRow(rowData);
-    }
-
-    private void calculateTotal() {
-        int numRows = table.getRowCount();
-        double totalAmount = 0;
-
-        for (int i = 0; i < numRows; i++) {
-            double value = Double.valueOf(table.getValueAt(i, 2).toString());
-            totalAmount += value;
-        }
-
-        DecimalFormat df = new DecimalFormat("0.00");
-        TotalNmbr.setText(df.format(totalAmount));
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         //-----------Change Panels------------
@@ -323,10 +288,16 @@ public class POSMenu extends JFrame implements ActionListener {
             panelFood.setVisible(false);
             panelDrinks.setVisible(false);
             panelDessert.setVisible(true);
-        }
+        } //-----------Change Frames------------  
+        else if (e.getSource() == btnInventory) {
 
-        //-----------Inputting foood in the table------------
-        if (e.getSource() == kungPaoChicken) {
+        } else if (e.getSource() == btnReports) {
+            new ReportsMenu();
+            this.dispose();
+        } else if (e.getSource() == btnWasteTracking) {
+
+        } //-----------Inputting foood in the table------------
+        else if (e.getSource() == kungPaoChicken) {
             int quantity = Integer.valueOf(nmbrkungPaoChicken.getText());
             quantity++;
             nmbrkungPaoChicken.setText(String.valueOf(quantity));
@@ -369,8 +340,8 @@ public class POSMenu extends JFrame implements ActionListener {
             addTable("Mango Sago", quantity, 99.00);
             calculateTotal();
 
-        } else if (e.getSource() == btnPay) {
-            
+        } else if (e.getSource() == btnPay) { //payment
+
             // Calculate total amount
             calculateTotal();
             double totalAmount = Double.parseDouble(TotalNmbr.getText());
@@ -391,9 +362,8 @@ public class POSMenu extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Insufficient payment. Please enter an amount greater than or equal to " + totalAmount, "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
-                           //pag cinlick mababawasann quantity sa database
-                            //
+
+            //pag cinlick mababawasann quantity sa database through BusinessLogic
             foodService.SubtractQuantity("kungPaoChicken", Integer.parseInt(nmbrkungPaoChicken.getText().trim()));
             foodService.SubtractQuantity("orangeChicken", Integer.parseInt(nmbrorangeChicken.getText().trim()));
             foodService.SubtractQuantity("mushroomChicken", Integer.parseInt(nmbrmushroomChicken.getText().trim()));
@@ -401,8 +371,8 @@ public class POSMenu extends JFrame implements ActionListener {
             foodService.SubtractQuantity("Sprite", Integer.parseInt(nmbrSprite.getText().trim()));
             foodService.SubtractQuantity("Ube Pastillas", Integer.parseInt(nmbrUbePastillas.getText().trim()));
             foodService.SubtractQuantity("Mango Sago", Integer.parseInt(nmbrMangoSago.getText().trim()));
-            
-            //pag cinlick madadagdagan soldsa database
+
+            //pag cinlick madadagdagan sold sa database through BusinessLogic
             foodService.AddSoldQuantity("kungPaoChicken", Integer.parseInt(nmbrkungPaoChicken.getText().trim()));
             foodService.AddSoldQuantity("orangeChicken", Integer.parseInt(nmbrorangeChicken.getText().trim()));
             foodService.AddSoldQuantity("mushroomChicken", Integer.parseInt(nmbrmushroomChicken.getText().trim()));
@@ -410,8 +380,8 @@ public class POSMenu extends JFrame implements ActionListener {
             foodService.AddSoldQuantity("Sprite", Integer.parseInt(nmbrSprite.getText().trim()));
             foodService.AddSoldQuantity("Ube Pastillas", Integer.parseInt(nmbrUbePastillas.getText().trim()));
             foodService.AddSoldQuantity("Mango Sago", Integer.parseInt(nmbrMangoSago.getText().trim()));
-            
-            // Display receipt
+
+            // ------------------Display receipt-------------------
             DecimalFormat df = new DecimalFormat("0.00");
 
             String receiptHeader = String.format("%-25s\n", "**  Receipt  **");
@@ -425,47 +395,67 @@ public class POSMenu extends JFrame implements ActionListener {
                 receiptBody += String.format("%-20s \n        Qty: %d \t   -   Sub-total: ₱%.2f\n", itemName, quantity, price);
             }
 
-            String receiptSubtotal = String.format("------------------------------------\n" + 
-                    "Total: ₱\t%.2f\n", totalAmount);
+            String receiptSubtotal = String.format("------------------------------------\n"
+                    + "Total: ₱\t%.2f\n", totalAmount);
             String receiptCash = String.format("Cash:\t ₱%.2f\n", paidAmount);
             String receiptChange = String.format("Change:\t ₱%.2f\n\n", paidAmount - totalAmount);
-            String receiptThankYou =             "**  Thank you!  **";
+            String receiptThankYou = "**  Thank you!  **";
 
             String receipt = receiptHeader + receiptItems + receiptBody + receiptSubtotal + receiptCash + receiptChange + receiptThankYou;
 
             JOptionPane.showMessageDialog(this, receipt, "I-eat", JOptionPane.PLAIN_MESSAGE);
 
-            // Clear table and total after successful payment
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.setRowCount(0);
-            TotalNmbr.setText("0.00");
-            
-            nmbrkungPaoChicken.setText("0");
-            nmbrmushroomChicken.setText("0");
-            nmbrorangeChicken.setText("0");
-            nmbrCoke.setText("0");
-            nmbrSprite.setText("0");
-            nmbrUbePastillas.setText("0");
-            nmbrMangoSago.setText("0");
-                        
+            SetAllTextToZero();// Clear table and total after successful payment
         } else if (e.getSource() == btnCancel) {
-            
-            // Clear table and total after successful payment
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.setRowCount(0);
-            TotalNmbr.setText("0.00");
-            
-            nmbrkungPaoChicken.setText("0");
-            nmbrmushroomChicken.setText("0");
-            nmbrorangeChicken.setText("0");
-            nmbrCoke.setText("0");
-            nmbrSprite.setText("0");
-            nmbrUbePastillas.setText("0");
-            nmbrMangoSago.setText("0");
-            
-        
+            SetAllTextToZero();
+        }
+    }
+    //POSMenu Methods
+
+    private void addTable(String name, int quantity, double price) { //addding product in the table that acts as text area for food order
+        DefaultTableModel dt = (DefaultTableModel) table.getModel();
+        DecimalFormat df = new DecimalFormat("0.00");
+        double totPrice = price * quantity;
+        String totalPrice = df.format(totPrice);
+
+        for (int row = 0; row < table.getRowCount(); row++) { // for each yung row
+            if (name.equals(table.getValueAt(row, 0))) { // kuhain yung foodName
+                dt.removeRow(table.convertRowIndexToModel(row)); // if same ng name reremove yung  row na yun then dun na lang sa same name ilalagay
+            }
         }
 
+        Vector<Object> rowData = new Vector<>(); //added the name, quantity, and the price of product
+        rowData.add(name);
+        rowData.add(quantity);
+        rowData.add(totalPrice);
+
+        dt.addRow(rowData);
     }
-    
+
+    private void calculateTotal() {
+        int priceRow = table.getRowCount(); // Calculate all the rows for price
+        double totalAmount = 0;
+
+        for (int i = 0; i < priceRow; i++) {
+            double value = Double.valueOf(table.getValueAt(i, 2).toString()); // get the row for the price
+            totalAmount += value;
+        }
+
+        DecimalFormat df = new DecimalFormat("0.00");
+        TotalNmbr.setText(df.format(totalAmount));
+    }
+
+    public void SetAllTextToZero() { // since 2 buttons are needed to set all label and our table to zero we've deceided to make it a method
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        TotalNmbr.setText("0.00");
+
+        nmbrkungPaoChicken.setText("0");
+        nmbrmushroomChicken.setText("0");
+        nmbrorangeChicken.setText("0");
+        nmbrCoke.setText("0");
+        nmbrSprite.setText("0");
+        nmbrUbePastillas.setText("0");
+        nmbrMangoSago.setText("0");
+    }
 }
