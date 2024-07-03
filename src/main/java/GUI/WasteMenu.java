@@ -179,13 +179,13 @@ public class WasteMenu extends JFrame implements ActionListener {
         if (e.getSource() == btnPOS) {
             new POSMenu();
             this.dispose();
-        } else if (e.getSource() == btnInventory) {
+       /*} else if (e.getSource() == btnInventory) {
  // new InventoryMenu();
             //his.dispose();
         } else if (e.getSource() == btnWasteTracking) {
 
         } else if (e.getSource() == btnReport) {
-new POSMenu();
+new POSMenu();*/
             this.dispose();
         } else if (e.getSource() == btnAddWaste) {
             whiteRectangle.setVisible(false);
