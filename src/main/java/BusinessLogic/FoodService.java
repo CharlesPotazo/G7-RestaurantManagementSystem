@@ -29,20 +29,27 @@ public class FoodService {
             foodDatabase.updateFood(food);
         }
     }
-    
-       public void AddSoldQuantity(String foodName, int amount) {
+
+    public void AddSoldQuantity(String foodName, int amount) {
         Food food = foodDatabase.GetFoodByName(foodName);
 
-   
         if (food != null) {
-        
+
             food.sold += amount;
 
-         
             foodDatabase.updateFood(food);
-        
         }
     }
     
+    public void AddWasteCountQuantity(String foodName, int amount) {
+        Food food = foodDatabase.GetFoodByName(foodName);
+
+        if (food != null) {
+
+            food.wasteCount += amount;
+
+            foodDatabase.updateFood(food);
+        }
+    }
 
 }

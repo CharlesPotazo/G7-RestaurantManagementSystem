@@ -40,7 +40,7 @@ public class SqlDbData {
     }
 
     public List<Food> getFoods() {
-        String selectStatement = "SELECT foodName,price,quantity,sold FROM stackedfoods ORDER BY sold DESC";
+        String selectStatement = "SELECT foodName,price,quantity,sold, wasteCount FROM stackedfoods ORDER BY sold DESC";
         List<Food> foods = new ArrayList<Food>();
 
         //same po need daw po lagyan ng try and catch tas cinlick lang po namin yung hint 
@@ -51,13 +51,14 @@ public class SqlDbData {
                 int price = reader.getInt("price");
                 int quantity = reader.getInt("quantity");
                 int sold = reader.getInt("sold");
+                int wasteCount = reader.getInt("wasteCount");
 
                 Food readFood = new Food();
                 readFood.foodName = foodName;
                 readFood.price = price;
                 readFood.quantity = quantity;
                 readFood.sold = sold;
-
+                readFood.wasteCount = wasteCount;
                 foods.add(readFood);
             }
         } catch (SQLException exception) {
@@ -81,6 +82,7 @@ public class SqlDbData {
                     food.price = reader.getInt("price");
                     food.quantity = reader.getInt("quantity");
                     food.sold = reader.getInt("sold");
+                    food.wasteCount = reader.getInt("wasteCount");
                 }
             }
         } catch (SQLException exception) {
@@ -91,13 +93,14 @@ public class SqlDbData {
     }
 
     public void updateFood(Food food) {
-        String updateStatement = "UPDATE stackedfoods SET quantity = ?, sold = ? WHERE foodName = ?";
+        String updateStatement = "UPDATE stackedfoods SET quantity = ?, sold = ?, wasteCount = ? WHERE foodName = ?";
 
         try (Connection connection = getConnection(); PreparedStatement updateCommand = connection.prepareStatement(updateStatement)) {
 
             updateCommand.setInt(1, food.quantity);
             updateCommand.setInt(2, food.sold);
-            updateCommand.setString(3, food.foodName);
+            updateCommand.setInt(3, food.wasteCount);
+            updateCommand.setString(4, food.foodName);
 
             updateCommand.executeUpdate();
 

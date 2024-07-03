@@ -289,13 +289,15 @@ public class POSMenu extends JFrame implements ActionListener {
             panelDrinks.setVisible(false);
             panelDessert.setVisible(true);
         } //-----------Change Frames------------  
-        else if (e.getSource() == btnInventory) {
-
+         else if (e.getSource() == btnInventory) {
+            // new InventoryMenu();
+            //this.dispose();
         } else if (e.getSource() == btnReports) {
-            new ReportsMenu();
-            this.dispose();
+            new ReportsMenu();  // Go to ReportsMenu
+            this.dispose(); //dispose current Frame po
         } else if (e.getSource() == btnWasteTracking) {
-
+            new WasteMenu();
+            this.dispose();
         } //-----------Inputting foood in the table------------
         else if (e.getSource() == kungPaoChicken) {
             int quantity = Integer.valueOf(nmbrkungPaoChicken.getText());

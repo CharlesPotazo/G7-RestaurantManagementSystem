@@ -13,6 +13,7 @@ public class Food {
     public int quantity;
     public int price;
     public int sold;
+    public int wasteCount;
     
     
 }

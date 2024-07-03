@@ -116,12 +116,14 @@ public class MainMenu extends JFrame implements ActionListener {
             new POSMenu();  // Go to POS Class po
             this.dispose(); //dispose current Frame po
         } else if (e.getSource() == btnInventory) {
-
+            // new InventoryMenu();
+            //his.dispose();
         } else if (e.getSource() == btnReports) {
             new ReportsMenu();  // Go to ReportsMenu
             this.dispose(); //dispose current Frame po
         } else if (e.getSource() == btnWasteTracking) {
-
+            new WasteMenu();
+            this.dispose();
         }
     }
 }
