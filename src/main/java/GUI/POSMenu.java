@@ -311,7 +311,7 @@ public class POSMenu extends JFrame implements ActionListener {
             int quantity = Integer.valueOf(nmbrmushroomChicken.getText());
             quantity++;
             nmbrmushroomChicken.setText(String.valueOf(quantity));
-            addTable("Mushroom Chicken", quantity, 150.00);
+            addTable("Mushroom Chicken", quantity, 130.00);
             calculateTotal();
         } else if (e.getSource() == orangeChicken) {
             int quantity = Integer.valueOf(nmbrorangeChicken.getText());
@@ -323,25 +323,25 @@ public class POSMenu extends JFrame implements ActionListener {
             int quantity = Integer.valueOf(nmbrCoke.getText());
             quantity++;
             nmbrCoke.setText(String.valueOf(quantity));
-            addTable("Coke", quantity, 50.00);
+            addTable("Coke", quantity, 80.00);
             calculateTotal();
         } else if (e.getSource() == sprite) {
             int quantity = Integer.valueOf(nmbrSprite.getText());
             quantity++;
             nmbrSprite.setText(String.valueOf(quantity));
-            addTable("Sprite", quantity, 50.00);
+            addTable("Sprite", quantity, 80.00);
             calculateTotal();
         } else if (e.getSource() == ubepastillas) {
             int quantity = Integer.valueOf(nmbrUbePastillas.getText());
             quantity++;
             nmbrUbePastillas.setText(String.valueOf(quantity));
-            addTable("Ube Pastillas", quantity, 99.00);
+            addTable("Ube Pastillas", quantity, 100.00);
             calculateTotal();
         } else if (e.getSource() == mangosago) {
             int quantity = Integer.valueOf(nmbrMangoSago.getText());
             quantity++;
             nmbrMangoSago.setText(String.valueOf(quantity));
-            addTable("Mango Sago", quantity, 99.00);
+            addTable("Mango Sago", quantity, 100.00);
             calculateTotal();
 
         } else if (e.getSource() == btnPay) { //payment
