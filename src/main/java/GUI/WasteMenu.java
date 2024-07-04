@@ -41,16 +41,6 @@ public class WasteMenu extends JFrame implements ActionListener {
         txtTopTitle.setForeground(new Color(253, 190, 2));
         whiteRectangle.add(txtTopTitle);
 
-        txtTopWaste = new JLabel();
-        txtTopWaste.setBounds(20, 60, 600, 30);
-        txtTopWaste.setFont(new Font("Arimo", Font.BOLD, 20));
-        whiteRectangle.add(txtTopWaste);
-
-        txtLowestWaste = new JLabel();
-        txtLowestWaste.setBounds(20, 100, 600, 30);
-        txtLowestWaste.setFont(new Font("Arimo", Font.BOLD, 20));
-        whiteRectangle.add(txtLowestWaste);
-
         String[] columnNames = {"Food Name", "wasteCount"};
         table = new DefaultTableModel(columnNames, 0);
         foodTable = new JTable(table);
@@ -186,6 +176,7 @@ public class WasteMenu extends JFrame implements ActionListener {
         } else if (e.getSource() == btnReports) {
             new ReportsMenu();
             this.dispose();
+            //change panels
         } else if (e.getSource() == btnAddWaste) {
             whiteRectangle.setVisible(false);
             whiteRectangle2.setVisible(true);
@@ -224,32 +215,6 @@ public class WasteMenu extends JFrame implements ActionListener {
 
         for (Food food : foods) { // add all food from out table
             table.addRow(new Object[]{food.foodName, food.wasteCount});
-        }
-        SetTextToHighestSale(); // We add the foods po before we set the texts 
-        SetTextToLowestSale(); //
-    }
-
-    private void SetTextToHighestSale() {
-        if (table.getRowCount() > 0) {//First Row po
-            Object foodName = table.getValueAt(0, 0); // First column po 
-            Object waste = table.getValueAt(0, 1); // Second column po 
-
-            txtTopWaste.setText("Most Waste: " + foodName + " waste " + waste);
-        } else {
-            txtTopWaste.setText("The store did not sale anything");
-        }
-    }
-
-    private void SetTextToLowestSale() {
-        int lastRowIndex = table.getRowCount() - 1;
-
-        if (lastRowIndex >= 0) {
-            Object foodName = table.getValueAt(lastRowIndex, 0);
-            Object wasteCount = table.getValueAt(lastRowIndex, 1);
-
-            txtLowestWaste.setText("Lowest Waste: " + foodName + " wasteCount " + wasteCount);
-        } else {
-            txtLowestWaste.setText("No sales data available.");
         }
     }
 }

@@ -120,7 +120,7 @@ public class InventoryMenu extends JFrame implements ActionListener {
         foodComboBox.setBounds(50, 30, 250, 30);
         whiteRectangle2.add(foodComboBox);
 
-        tfquantity = new JTextField("Add Quantity");
+        tfquantity = new JTextField("Add_Quantity");
         tfquantity.setBounds(360, 53, 170, 35);
         tfquantity.setBackground(new Color(167, 54, 49));
         tfquantity.setBorder(null);
@@ -203,6 +203,7 @@ public class InventoryMenu extends JFrame implements ActionListener {
                 int quantityToAdd = Integer.parseInt(tfquantity.getText());
 
                 foodService.AddQuantity(selectedFood, quantityToAdd); //Add quantity to our database thorugh our business logic Add quantity
+                tfquantity.setText("");//remove the text 
                 RefreshFood();
                 JOptionPane.showMessageDialog(this, "Successfully Added", "Added", JOptionPane.INFORMATION_MESSAGE);
             } catch (NumberFormatException ex) {
