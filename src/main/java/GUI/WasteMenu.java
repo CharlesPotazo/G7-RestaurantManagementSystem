@@ -200,8 +200,8 @@ public class WasteMenu extends JFrame implements ActionListener {
                 try {
                     int wasteCount = Integer.parseInt(wasteCountText); // Convert  to int
 
-                    foodService.AddWasteCountQuantity(selectedFood, wasteCount);
-                    foodService.SubtractQuantity(selectedFood, wasteCount);
+                    foodService.AddWasteCountQuantity(selectedFood, wasteCount); //add waste quantity to our database through our business logic
+                    foodService.SubtractQuantity(selectedFood, wasteCount); //subtract  quantity to our database through our business logic
                     txtFldwasteCount.setText(""); // Clear the waste count text field
                     JOptionPane.showMessageDialog(this, "Successfully Added", "Added", JOptionPane.INFORMATION_MESSAGE);
                     PutFoodInTheTable(); //reload the table

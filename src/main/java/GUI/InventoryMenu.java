@@ -192,21 +192,24 @@ public class InventoryMenu extends JFrame implements ActionListener {
         } else if (e.getSource() == btnWasteTracking) {
             new WasteMenu();
             this.dispose();
+            //Change to different panel
         } else if (e.getSource() == btnAdd) {
             whiteRectangle.setVisible(false);
+            //Add quantity to our database
             whiteRectangle2.setVisible(true);
         } else if (e.getSource() == btnAdd2) {
             try {
-                String selectedFood = (String) foodComboBox.getSelectedItem();
+                String selectedFood = (String) foodComboBox.getSelectedItem(); 
                 int quantityToAdd = Integer.parseInt(tfquantity.getText());
 
-                foodService.AddQuantity(selectedFood, quantityToAdd);
+                foodService.AddQuantity(selectedFood, quantityToAdd); //Add quantity to our database thorugh our business logic Add quantity
                 RefreshFood();
                 JOptionPane.showMessageDialog(this, "Successfully Added", "Added", JOptionPane.INFORMATION_MESSAGE);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Not Added", "Input Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
+            //Change to different panel
         } else if (e.getSource() == btnReturn) {
             whiteRectangle.setVisible(true);
             whiteRectangle2.setVisible(false);
